@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.env
+.venv
+venv/
+ENV/
+env/
+pip-wheel-metadata/
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+.history/
+
+# Data
+data/uploads/
+data/json/*.tmp
+
+# Node (just in case)
+node_modules/

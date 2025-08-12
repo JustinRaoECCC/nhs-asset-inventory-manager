@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>NHS Asset Inventory Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>NHS Asset Inventory Manager</h1>
+    <p class="subtitle">Upload → Normalize → Explore → Compare</p>
+  </header>
+
+  <main class="grid">
+    <section class="card">
+      <h2>Asset Inventory (Station-Centric)</h2>
+      <p class="muted">Each row is a station; columns include attributes and asset flags.</p>
+      <input type="file" id="fileA" accept=".xlsx,.xls" />
+      <button id="uploadA" class="btn">Upload & Parse</button>
+      <div id="statusA" class="status"></div>
+      <div id="treeA" class="tree"></div>
+    </section>
+
+    <section class="mid">
+      <button id="compareBtn" class="btn btn-primary">Compare Missing Infrastructure ➜</button>
+      <button id="missingBtn" class="btn">Find HYDEX-only Stations</button>
+      <div id="compareStatus" class="status"></div>
+    </section>
+
+    <section class="card">
+      <h2>HYDEX (Asset-Centric)</h2>
+      <p class="muted">Each row is a 'thing' at a station; multiple rows per station.</p>
+      <input type="file" id="fileB" accept=".xlsx,.xls" />
+      <button id="uploadB" class="btn">Upload & Parse</button>
+      <div id="statusB" class="status"></div>
+      <div id="treeB" class="tree"></div>
+    </section>
+  </main>
+
+  <!-- Bottom tabs -->
+  <section class="card full">
+    <div class="tabs">
+      <button id="tabBtnCompare" class="tab-btn active" data-target="resultsPane">Comparison Results</button>
+      <button id="tabBtnMissing" class="tab-btn" data-target="missingPane">HYDEX-only Stations</button>
+    </div>
+    <div id="resultsPane" class="tab-pane active">
+      <div id="results"></div>
+    </div>
+    <div id="missingPane" class="tab-pane">
+      <div class="toolbar">
+        <button id="exportMissingBtn" class="btn">Export to Excel (.xlsx)</button>
+      </div>
+      <div id="missingTable" class="table-wrap"></div>
+    </div>
+  </section>
+
+
+  <footer class="site-footer">
+    <span>Built with FastAPI &amp; vanilla JS.</span>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
