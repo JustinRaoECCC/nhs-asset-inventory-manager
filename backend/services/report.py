@@ -35,10 +35,15 @@ def _office(attrs: Dict[str, Any]) -> str | None:
     return _get_attr(attrs, ["office"])
 
 def build_missing_stations_rows(asset_inventory: Inventory, hydex: Inventory) -> List[Dict[str, str]]:
-    left_ids = {s.station_id for s in asset_inventory.stations}
+    def norm_id(x: str) -> str:
+        # Trim whitespace and compare in UPPERCASE
+        return str(x or "").strip().upper()
+
+    left_ids = {norm_id(s.station_id) for s in asset_inventory.stations}
+
     rows: List[Dict[str, str]] = []
     for s in hydex.stations:
-        if s.station_id not in left_ids:
+        if norm_id(s.station_id) not in left_ids:
             attrs = s.attributes or {}
             rows.append({
                 "station_id": s.station_id,
@@ -48,7 +53,7 @@ def build_missing_stations_rows(asset_inventory: Inventory, hydex: Inventory) ->
                 "tech_name": _tech_name(attrs) or "",
             })
     # Sort by Station ID for consistency
-    rows.sort(key=lambda r: r["station_id"])
+    rows.sort(key=lambda r: norm_id(r["station_id"]))
     return rows
 
 def rows_to_excel_bytes(rows: List[Dict[str, str]]) -> BytesIO:
